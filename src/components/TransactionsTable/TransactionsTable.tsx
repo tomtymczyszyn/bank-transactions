@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Pagination, Transaction } from '../../hooks/useTransactions';
+import { Pagination, Query, Transaction } from '../../hooks/useTransactions';
 import Button from '../Button/Button';
 import TransactionRow from './TransactionRow';
 import styles from './TransactionsTable.module.css';
@@ -7,7 +7,7 @@ import styles from './TransactionsTable.module.css';
 type TransactionTableProps = {
   transactions: Transaction[];
   pagination?: Pagination;
-  getTransactions: (url: string | undefined) => void;
+  getTransactions: (query: Query) => void;
 };
 
 function TransactionsTable({ transactions, pagination = {}, getTransactions }: TransactionTableProps): ReactElement {

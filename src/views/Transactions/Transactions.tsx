@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import TransactionsFilters from '../../components/TransactionsFilters/TransactionsFilters';
 import TransactionsTable from '../../components/TransactionsTable/TransactionsTable';
 import useTransactions from '../../hooks/useTransactions';
 
@@ -12,6 +13,9 @@ function Transactions(): ReactElement {
     <div>
       <div>Transactions</div>
       <div>
+        <div>
+          <TransactionsFilters getTransactions={getTransactions} />
+        </div>
         <TransactionsTable transactions={transactions} pagination={pagination} getTransactions={getTransactions} />
       </div>
     </div>

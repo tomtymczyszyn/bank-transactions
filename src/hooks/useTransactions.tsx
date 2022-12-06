@@ -17,7 +17,7 @@ export type Pagination = {
   next?: string;
 };
 
-type Query = string | undefined;
+export type Query = string | undefined;
 
 function useTransactions(defaultQuery: Query) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
