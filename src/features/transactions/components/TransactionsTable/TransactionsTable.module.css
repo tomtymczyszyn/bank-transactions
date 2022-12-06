@@ -10,13 +10,13 @@
 .transactionRow > div {
   display: table-cell;
   padding: 15px;
-  border: 1px solid #555;
+  border: 1px solid var(--color-table-border);
   cursor: pointer;
 }
 
 .transactionHeader > div {
   font-weight: 600;
-  background-color: #444;
+  background-color: var(--color-table-th);
   cursor: default;
 }
 
@@ -26,8 +26,8 @@
 
 .transactionDetailsRow {
   display: table-row;
-  border-left: 1px solid #555;
-  border-right: 1px solid #555;
+  border-left: 1px solid var(--color-table-border);
+  border-right: 1px solid var(--color-table-border);
 }
 .transactionDetailsCell {
   display: table-cell;

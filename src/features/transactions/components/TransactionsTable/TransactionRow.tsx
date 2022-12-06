@@ -1,13 +1,13 @@
 import { KeyboardEvent, ReactElement, useMemo, useState } from 'react';
-import { Transaction } from '../../hooks/useTransactions';
+import { Transaction } from '../../../../hooks/useTransactions';
 import styles from './TransactionsTable.module.css';
-import { CURRENCY_SYMBOL } from '../../constants/currency';
+import { CURRENCY_SYMBOL } from '../../../../constants/currency';
 
 type TransactionProps = {
   transaction: Transaction;
 };
 
-function TransactionRow({ transaction }: TransactionProps): ReactElement {
+export function TransactionRow({ transaction }: TransactionProps): ReactElement {
   const [showDetails, setShowDetails] = useState(false);
 
   function handleRowClick() {
@@ -47,7 +47,7 @@ function TransactionRow({ transaction }: TransactionProps): ReactElement {
       </div>
       {showDetails && (
         <div className={styles.transactionDetailsRow}>
-          <div  className={styles.transactionDetailsCell}>
+          <div className={styles.transactionDetailsCell}>
             <div>{transaction.address}</div>
             <div>{transaction.account}</div>
           </div>
@@ -56,5 +56,3 @@ function TransactionRow({ transaction }: TransactionProps): ReactElement {
     </>
   );
 }
-
-export default TransactionRow;

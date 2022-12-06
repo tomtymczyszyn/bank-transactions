@@ -1,21 +1,22 @@
 import { InputHTMLAttributes } from 'react';
+import { useField } from 'formik';
+import classnames from 'classnames';
+import styles from './Input.module.css';
 
 type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> & {
   label?: string;
-  onChange: (value: string) => void;
 };
 
-function Input({ id, label, onChange, ...props }: InputProps) {
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    onChange(e.target.value);
-  }
+export function Input({ label, ...props }: InputProps) {
+  const [field, meta] = useField(props);
+
+  const isError = !!(meta.touched && meta.error);
 
   return (
-    <div>
-      {label && <label htmlFor={id}>{label}</label>}
-      <input onChange={handleChange} {...props} />
+    <div className={classnames(styles.inputContainer, isError && styles.inputContainerError)}>
+      {label && <label htmlFor={props.id}>{label}</label>}
+      <input className={classnames(styles.input, isError && styles.inputError)} {...field} {...props} />
+      {isError ? <div className={styles.inputErrorLabel}>{meta.error}</div> : null}
     </div>
   );
 }
-
-export default Input;

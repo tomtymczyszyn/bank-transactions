@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { API_URL } from '../constants/config';
-import { parseLinkHeader } from '../helpers/requests';
+import { parseLinkHeader } from '../utils/requests';
 
 export type Transaction = {
   account: string;
@@ -15,6 +15,14 @@ export type Transaction = {
 export type Pagination = {
   prev?: string;
   next?: string;
+};
+
+type AddTransaction = {
+  amount: number;
+  account: string;
+  beneficiary: string;
+  address: string;
+  description: string;
 };
 
 export type Query = string | undefined;
@@ -46,10 +54,34 @@ function useTransactions(defaultQuery: Query) {
 
   useEffect(getTransactions, []);
 
+  function addTransaction(values: AddTransaction) {
+    fetch(`${API_URL}/transactions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...values, date: new Date().toISOString() }),
+    })
+      .then((response) => {
+        if (response.status !== 201) {
+          throw new Error(`Status: ${response.status}, Message: ${response.statusText}`);
+        }
+        return response;
+      })
+      .then(() => {
+        getTransactions();
+      })
+      // TODO: handle error
+      .catch(() => {
+        // we could send error details to some error logging service (like Sentry)
+      });
+  }
+
   return {
     transactions,
-    getTransactions,
     pagination,
+    getTransactions,
+    addTransaction,
   };
 }
 

@@ -1,4 +1,19 @@
+html {
+  --color-text: #fefefe;
+  --color-background: #333;
+
+  --color-primary: #646cff;
+  --color-secondary: #1a1a1a;
+
+  --color-table-border: #555;
+  --color-table-th: #444;
+
+  --color-success: #00FF00;
+  --color-error: #ff0000;
+}
+
 :root {
+  box-sizing: border-box;
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;

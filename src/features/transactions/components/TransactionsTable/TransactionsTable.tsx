@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
-import { Pagination, Query, Transaction } from '../../hooks/useTransactions';
-import Button from '../Button/Button';
-import TransactionRow from './TransactionRow';
+import { Pagination, Query, Transaction } from '../../../../hooks/useTransactions';
+import { Button } from '../../../../components/Button';
 import styles from './TransactionsTable.module.css';
+import { TransactionRow } from './TransactionRow';
 
 type TransactionTableProps = {
   transactions: Transaction[];
@@ -10,7 +10,11 @@ type TransactionTableProps = {
   getTransactions: (query: Query) => void;
 };
 
-function TransactionsTable({ transactions, pagination = {}, getTransactions }: TransactionTableProps): ReactElement {
+export function TransactionsTable({
+  transactions,
+  pagination = {},
+  getTransactions,
+}: TransactionTableProps): ReactElement {
   return (
     <div className={styles.transactions}>
       <div className={`${styles.transactionRow} ${styles.transactionHeader}`}>
@@ -45,5 +49,3 @@ function TransactionsTable({ transactions, pagination = {}, getTransactions }: T
     </div>
   );
 }
-
-export default TransactionsTable;
