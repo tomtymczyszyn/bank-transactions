@@ -3,3 +3,9 @@
   width: 100%;
   margin: 0 auto;
 }
+
+.viewContainer {
+  padding: 30px 20px;
+  background-color: var(--color-background);
+  box-shadow: 0 0 30px #222;
+}

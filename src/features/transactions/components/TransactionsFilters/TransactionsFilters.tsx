@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Formik, Form } from 'formik';
-import { Button } from '../../../../components/Button';
+import { Button, VariantOptions } from '../../../../components/Button';
 import { Input } from '../../../../components/Input';
 import { Query } from '../../../../hooks/useTransactions';
 
@@ -33,21 +33,29 @@ export function TransactionsFilters({ getTransactions }: TransactionsFiltersProp
   }
 
   return (
-    <>
-      <div>Filters</div>
-      <Formik
-        initialValues={{
-          [FIELD_BENEFICIARY]: '',
-        }}
-        onSubmit={handleFiltersSubmit}
-      >
-        {() => (
-          <Form>
-            <Input label="Beneficiary:" id={FIELD_BENEFICIARY} name={FIELD_BENEFICIARY} type="text" />
-            <Button type="submit">Filter</Button>
-          </Form>
-        )}
-      </Formik>
-    </>
+    <Formik
+      initialValues={{
+        [FIELD_BENEFICIARY]: '',
+      }}
+      onSubmit={handleFiltersSubmit}
+    >
+      {({ resetForm }) => (
+        <Form>
+          <Input label="Beneficiary:" id={FIELD_BENEFICIARY} name={FIELD_BENEFICIARY} type="text" />
+          <Button variant={VariantOptions.Primary} type="submit" style={{ marginRight: 5 }}>
+            Filter
+          </Button>
+          <Button
+            type="button"
+            onClick={() => {
+              resetForm();
+              handleFiltersSubmit({});
+            }}
+          >
+            Reset
+          </Button>
+        </Form>
+      )}
+    </Formik>
   );
 }

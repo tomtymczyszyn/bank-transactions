@@ -1,8 +1,10 @@
-import { Formik, Form } from 'formik';
+// eslint-disable-next-line import/named
+import { Formik, Form, FormikHelpers } from 'formik';
 import { ReactElement } from 'react';
 import * as Yup from 'yup';
-import { Button } from '../../../../components/Button';
+import { Button, VariantOptions } from '../../../../components/Button';
 import { Input } from '../../../../components/Input';
+import { Transaction } from '../../../../hooks/useTransactions';
 import styles from './TransactionForm.module.css';
 
 const FIELD_AMOUNT = 'amount';
@@ -20,7 +22,7 @@ type Values = {
 };
 
 type TransactionFormProps = {
-  onSubmit: (values: Values) => void;
+  onSubmit: (values: Values) => Promise<Transaction>;
 };
 
 const TransactionSchema = Yup.object().shape({
@@ -35,6 +37,12 @@ const TransactionSchema = Yup.object().shape({
 });
 
 export function TransactionForm({ onSubmit }: TransactionFormProps): ReactElement {
+  function handleSubmit(values: Values, actions: FormikHelpers<Values>) {
+    onSubmit(values).then(() => {
+      actions.resetForm();
+    });
+  }
+
   return (
     <Formik
       initialValues={{
@@ -45,7 +53,7 @@ export function TransactionForm({ onSubmit }: TransactionFormProps): ReactElemen
         [FIELD_DESCRIPTION]: '',
       }}
       validationSchema={TransactionSchema}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
     >
       {() => (
         <Form>
@@ -56,7 +64,9 @@ export function TransactionForm({ onSubmit }: TransactionFormProps): ReactElemen
             <Input label="Address:" id={FIELD_ADDRESS} name={FIELD_ADDRESS} type="text" />
             <Input label="Description:" id={FIELD_DESCRIPTION} name={FIELD_DESCRIPTION} type="text" />
           </div>
-          <Button type="submit">Add</Button>
+          <Button variant={VariantOptions.Primary} type="submit">
+            Add
+          </Button>
         </Form>
       )}
     </Formik>

@@ -16,3 +16,10 @@
 .button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+.button:disabled {
+  border: 1px solid transparent;
+  cursor: not-allowed;
+}
+.primary {
+  background-color: var(--color-primary);
+}

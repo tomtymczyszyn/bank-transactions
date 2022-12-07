@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import toast from '../lib/toast';
 import { API_URL } from '../constants/config';
 import { parseLinkHeader } from '../utils/requests';
 
@@ -28,7 +29,7 @@ type AddTransaction = {
 export type Query = string | undefined;
 
 function useTransactions(defaultQuery: Query) {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[] | null>(null);
   const [pagination, setPagination] = useState<Pagination>({});
 
   function getTransactions(query: Query = defaultQuery): void {
@@ -44,9 +45,9 @@ function useTransactions(defaultQuery: Query) {
       .then((data) => {
         setTransactions(data);
       })
-      // TODO: handle error
       .catch(() => {
         // we could send error details to some error logging service (like Sentry)
+        toast.error('Could not get transactions, something went wrong :(');
         setPagination({});
         setTransactions([]);
       });
@@ -54,27 +55,55 @@ function useTransactions(defaultQuery: Query) {
 
   useEffect(getTransactions, []);
 
-  function addTransaction(values: AddTransaction) {
-    fetch(`${API_URL}/transactions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...values, date: new Date().toISOString() }),
-    })
-      .then((response) => {
-        if (response.status !== 201) {
-          throw new Error(`Status: ${response.status}, Message: ${response.statusText}`);
-        }
-        return response;
+  function addTransaction(values: AddTransaction): Promise<Transaction> {
+    return new Promise((resolve) => {
+      return fetch(`${API_URL}/transactions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...values, date: new Date().toISOString() }),
       })
-      .then(() => {
-        getTransactions();
+        .then((response) => {
+          if (response.status !== 201) {
+            throw new Error(`Status: ${response.status}, Message: ${response.statusText}`);
+          }
+          return response;
+        })
+        .then((response) => response.json())
+        .then((response) => {
+          toast.success('Transaction was properly added!');
+          getTransactions();
+          resolve(response);
+        })
+        .catch(() => {
+          // we could send error details to some error logging service (like Sentry)
+          toast.error('Transaction was not added, something went wrong :(');
+        });
+    });
+  }
+
+  function removeTransaction(id: number): Promise<Transaction> {
+    return new Promise((resolve) => {
+      return fetch(`${API_URL}/transactions/${id}`, {
+        method: 'DELETE',
       })
-      // TODO: handle error
-      .catch(() => {
-        // we could send error details to some error logging service (like Sentry)
-      });
+        .then((response) => {
+          if (response.status !== 200) {
+            throw new Error(`Status: ${response.status}, Message: ${response.statusText}`);
+          }
+          return response;
+        })
+        .then((response) => response.json())
+        .then((response) => {
+          toast.success('Transaction was properly removed!');
+          resolve(response);
+        })
+        .catch(() => {
+          // we could send error details to some error logging service (like Sentry)
+          toast.error('Transaction was not removed, something went wrong :(');
+        });
+    });
   }
 
   return {
@@ -82,6 +111,7 @@ function useTransactions(defaultQuery: Query) {
     pagination,
     getTransactions,
     addTransaction,
+    removeTransaction,
   };
 }
 

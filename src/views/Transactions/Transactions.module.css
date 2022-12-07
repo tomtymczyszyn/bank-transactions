@@ -1,0 +1,84 @@
+.header {
+  font-size: 32px;
+  font-weight: 600;
+  margin: 0 15px 30px 15px;
+}
+
+.sectionHeader {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 15px 30px 15px;
+}
+
+.topSection {
+  padding: 20px;
+  background-color: var(--color-card-background);
+  border-radius: 14px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.topSectionHeader {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.balanceValue {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.topSectionSide {
+  width: 100%;
+}
+
+.topSectionBalanceFilters {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.balance {
+  padding: 25px;
+  background: var(--color-background);
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+.filters {
+  padding: 25px;
+  background: var(--color-background);
+  border-radius: 20px;
+}
+
+.filters input {
+  max-width: 300px;
+}
+
+.addTransaction {
+  padding: 25px;
+  background-color: var(--color-background);
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+@media (min-width: 768px) {
+  .topSection {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+  .topSectionSide {
+    width: 45%;
+  }
+
+  .balance {
+    margin-bottom: 0;
+  }
+
+  .addTransaction {
+    margin-bottom: 0;
+  }
+}
