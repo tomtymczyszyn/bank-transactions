@@ -1,5 +1,6 @@
 html {
   --color-text: #fefefe;
+  --color-text-faded: #bbbbbb;
   --color-background: #333333;
 
   --color-primary: #646cff;
@@ -10,8 +11,8 @@ html {
 
   --color-card-background: #555555;
 
-  --color-success: #00FF00;
-  --color-error: #ff0000;
+  --color-success: #00cc00;
+  --color-error: #ff5555;
 }
 
 * {

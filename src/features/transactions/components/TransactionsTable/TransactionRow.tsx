@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, KeyboardEvent, ReactElement, useMemo, useState } from 'react';
+import { KeyboardEvent, ReactElement, useMemo, useState } from 'react';
 import classnames from 'classnames';
 import { Transaction } from '../../../../hooks/useTransactions';
 import styles from './TransactionsTable.module.css';
@@ -53,7 +53,7 @@ export function TransactionRow({ transaction, onTransactionRemove }: Transaction
 
   return (
     <>
-      <div
+      <tr
         className={classnames(
           styles.transactionRow,
           deleteStatus === DeleteStatus.Deleting ? styles.transactionRowFade : false,
@@ -63,23 +63,30 @@ export function TransactionRow({ transaction, onTransactionRemove }: Transaction
         role="button"
         tabIndex={0}
       >
-        <div>{formattedDate}</div>
-        {/* TODO: show only beneficiary, show address and account only when in preview */}
-        <div>{transaction.beneficiary}</div>
-
-        <div>{transaction.description}</div>
-        <div className={styles.transactionAmount}>{formatAmount(transaction.amount)}</div>
-        <div>
+        <td>{formattedDate}</td>
+        <td>{transaction.beneficiary}</td>
+        <td>{transaction.description}</td>
+        <td className={styles.transactionAmount}>{formatAmount(transaction.amount)}</td>
+        <td>
           <Button onClick={handleRemoveClick}>Delete</Button>
-        </div>
-      </div>
+        </td>
+      </tr>
       {showDetails && (
-        <div className={styles.transactionDetailsRow}>
-          <div className={styles.transactionDetailsCell}>
-            <div>{transaction.address}</div>
-            <div>{transaction.account}</div>
-          </div>
-        </div>
+        <tr className={styles.transactionDetailsRow}>
+          <td colSpan={5} className={styles.transactionDetailsCell}>
+            <div>
+              <strong>{transaction.beneficiary}</strong>
+            </div>
+            <div>
+              <span className={styles.transactionDetailsLabel}>Address:</span>
+              <span>{transaction.address}</span>
+            </div>
+            <div>
+              <span className={styles.transactionDetailsLabel}>Account number:</span>
+              <span>{transaction.account}</span>
+            </div>
+          </td>
+        </tr>
       )}
     </>
   );

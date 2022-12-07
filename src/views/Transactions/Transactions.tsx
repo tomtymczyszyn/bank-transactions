@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import classnames from 'classnames';
 import { TransactionForm } from '../../features/transactions/components/TransactionForm';
 import { TransactionsFilters } from '../../features/transactions/components/TransactionsFilters';
@@ -7,7 +7,7 @@ import useTransactions from '../../hooks/useTransactions';
 import { formatAmount } from '../../utils/formatters';
 import styles from './Transactions.module.css';
 
-type Balance = number | undefined;
+const BALANCE = 5000;
 
 const TRANSACTIONS_LIMIT_PER_PAGE = 20;
 const DEFAULT_TRANSACTION_QUERY = `?_page=1&_limit=${TRANSACTIONS_LIMIT_PER_PAGE}&_sort=date&_order=desc`;
@@ -15,8 +15,6 @@ const DEFAULT_TRANSACTION_QUERY = `?_page=1&_limit=${TRANSACTIONS_LIMIT_PER_PAGE
 function Transactions(): ReactElement {
   const { transactions, pagination, getTransactions, addTransaction, removeTransaction } =
     useTransactions(DEFAULT_TRANSACTION_QUERY);
-
-  const [balance, setBalance] = useState<Balance>(5000);
 
   return (
     <div>
@@ -30,7 +28,7 @@ function Transactions(): ReactElement {
           <div className={classnames(styles.topSectionSide, styles.topSectionBalanceFilters)}>
             <div className={styles.balance}>
               <div className={styles.topSectionHeader}>Balance:</div>
-              <div className={styles.balanceValue}>{formatAmount(balance)}</div>
+              <div className={styles.balanceValue}>{formatAmount(BALANCE)}</div>
             </div>
             <div className={styles.filters}>
               <div className={styles.topSectionHeader}>Filters:</div>

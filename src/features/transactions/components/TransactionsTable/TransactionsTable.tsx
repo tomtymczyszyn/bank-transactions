@@ -19,20 +19,33 @@ export function TransactionsTable({
   removeTransaction,
 }: TransactionTableProps): ReactElement {
   return (
-    <>
-      <div className={styles.transactions}>
-        <div className={classnames(styles.transactionRow, styles.transactionHeader)}>
-          <div>Date</div>
-          <div>Name</div>
-          <div>Description</div>
-          <div>Amount</div>
-          <div>Actions</div>
-        </div>
-        {transactions.length === 0 && <div className={styles.noResult}>There are no results :(</div>}
-        {transactions.map((transaction) => (
-          <TransactionRow key={transaction.id} transaction={transaction} onTransactionRemove={removeTransaction} />
-        ))}
-      </div>
+    <div className={styles.tableContainer}>
+      <table className={styles.transactions}>
+        <thead>
+          <tr className={classnames(styles.transactionHeader)}>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        {transactions.length === 0 ? (
+          <tbody>
+            <tr>
+              <td colSpan={5} className={styles.noResult}>
+                There are no results :(
+              </td>
+            </tr>
+          </tbody>
+        ) : (
+          <tbody>
+            {transactions.map((transaction) => (
+              <TransactionRow key={transaction.id} transaction={transaction} onTransactionRemove={removeTransaction} />
+            ))}
+          </tbody>
+        )}
+      </table>
       <div className={styles.pagination}>
         <div>
           {!!pagination.prev && (
@@ -59,6 +72,6 @@ export function TransactionsTable({
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,11 +1,12 @@
-.transactions {
-  display: table;
-  width: 100%;
-  margin-bottom: 30px;
+.tableContainer {
+  overflow-x: auto;
 }
 
-.transactionRow {
-  display: table-row;
+.transactions {
+  width: 100%;
+  margin-bottom: 30px;
+  border-collapse: collapse;
+  border: 1px solid var(--color-table-border);
 }
 
 .transactionRowFade {
@@ -13,16 +14,17 @@
   transition: opacity 800ms;
 }
 
-.transactionRow > div {
-  display: table-cell;
+.transactionRow > td {
   padding: 15px;
   border: 1px solid var(--color-table-border);
   cursor: pointer;
 }
 
-.transactionHeader > div {
-  font-weight: 600;
+.transactionHeader > th {
+  padding: 15px;
   background-color: var(--color-table-th);
+  border: 1px solid var(--color-table-border);
+  font-weight: 600;
   cursor: default;
 }
 
@@ -31,13 +33,18 @@
 }
 
 .transactionDetailsRow {
-  display: table-row;
   border-left: 1px solid var(--color-table-border);
   border-right: 1px solid var(--color-table-border);
 }
+
 .transactionDetailsCell {
-  display: table-cell;
   padding: 15px;
+  background-color: var(--color-card-background);
+}
+
+.transactionDetailsLabel {
+  margin-right: 5px;
+  color: var(--color-text-faded);
 }
 
 .pagination {
@@ -48,82 +55,5 @@
 .noResult {
   width: 100%;
   text-align: center;
-  margin: 30px 0;
+  padding: 30px 0;
 }
-
-/* table {
-  border: 1px solid #ccc;
-  border-collapse: collapse;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  table-layout: fixed;
-}
-
-table caption {
-  font-size: 1.5em;
-  margin: .5em 0 .75em;
-}
-
-table tr {
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  padding: .35em;
-}
-
-table th,
-table td {
-  padding: .625em;
-  text-align: center;
-}
-
-table th {
-  font-size: .85em;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
-@media screen and (max-width: 600px) {
-  table {
-    border: 0;
-  }
-
-  table caption {
-    font-size: 1.3em;
-  }
-  
-  table thead {
-    border: none;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-  }
-  
-  table tr {
-    border-bottom: 3px solid #ddd;
-    display: block;
-    margin-bottom: .625em;
-  }
-  
-  table td {
-    border-bottom: 1px solid #ddd;
-    display: block;
-    font-size: .8em;
-    text-align: right;
-  }
-  
-  table td::before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  table td:last-child {
-    border-bottom: 0;
-  }
-} */

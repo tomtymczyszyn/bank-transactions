@@ -4,14 +4,17 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Container } from './components/Container';
 
 function App() {
   return (
     <div className={styles.container}>
       <Navbar />
-      <div className={styles.viewContainer}>
-        <Transactions />
-      </div>
+      <Container>
+        <div className={styles.viewContainer}>
+          <Transactions />
+        </div>
+      </Container>
       <Footer />
       <ToastContainer />
     </div>
