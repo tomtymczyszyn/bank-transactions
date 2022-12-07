@@ -1,5 +1,7 @@
 ## How to run application
 
+Copy file .env-example and rename it to .env
+
 Run following commands in task directory to run application
 
     npm install
